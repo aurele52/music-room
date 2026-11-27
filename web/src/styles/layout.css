@@ -1,0 +1,143 @@
+.app-layout {
+  position: relative;
+  align-self: stretch;
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  width: 100%;
+  min-height: calc(100vh - 40px);
+  background: #111827;
+}
+
+.app-sidebar {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  background: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 12px;
+  position: sticky;
+  top: 20px;
+  height: calc(100vh - 40px);
+}
+
+.app-sidebar .brand {
+  margin: 0 8px 32px;
+}
+
+.app-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.app-menu button {
+  text-align: left;
+  background: transparent;
+  color: #cbd5e1;
+  font-weight: 500;
+}
+
+.app-menu button:hover {
+  background: #374151;
+}
+
+.app-menu button.active {
+  background: #2563eb;
+  color: white;
+}
+
+.app-account {
+  margin-top: auto;
+  padding: 16px 8px 0;
+  border-top: 1px solid #374151;
+  overflow-wrap: anywhere;
+}
+
+.app-content {
+  padding: 28px 36px;
+  width: 100%;
+  max-width: 1200px;
+  min-width: 0;
+  margin: 0 auto;
+}
+
+.app-content .profile {
+  background: #1f2937;
+  border: 1px solid #374151;
+  margin-top: 16px;
+}
+
+.app-content > .error {
+  margin-bottom: 16px;
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.home-shortcut {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+  padding: 24px;
+  min-height: 130px;
+  background: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 12px;
+}
+
+.home-shortcut:hover {
+  background: #293548;
+  border-color: #60a5fa;
+}
+
+.home-shortcut strong {
+  font-size: 18px;
+}
+
+.home-shortcut span {
+  font-weight: normal;
+  color: #9ca3af;
+  line-height: 1.5;
+}
+
+@media (max-width: 760px) {
+  .app-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .app-sidebar {
+    position: static;
+    height: auto;
+    padding: 16px;
+  }
+
+  .app-sidebar .brand {
+    margin-bottom: 16px;
+  }
+
+  .app-menu {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .app-menu button {
+    text-align: center;
+  }
+
+  .app-account {
+    margin-top: 16px;
+  }
+
+  .app-content {
+    padding: 24px 0;
+  }
+
+  .home-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

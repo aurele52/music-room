@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": [
+      "node"
+    ],
+    "noEmit": true
+  },
+  "include": [
+    "tests/**/*.ts",
+    "src/session/SessionManager.ts",
+    "tests/**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

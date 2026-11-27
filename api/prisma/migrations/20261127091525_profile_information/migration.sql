@@ -1,0 +1,8 @@
+BEGIN;
+
+ALTER TABLE "User"
+    ADD COLUMN "publicBio" TEXT NOT NULL DEFAULT '',
+    ADD COLUMN "friendsBio" TEXT NOT NULL DEFAULT '',
+    ADD COLUMN "privateNote" TEXT NOT NULL DEFAULT '';
+
+COMMIT;

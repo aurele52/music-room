@@ -1,0 +1,9 @@
+BEGIN;
+
+ALTER TABLE "MusicSession"
+ADD COLUMN "ranked" BOOLEAN NOT NULL DEFAULT false;
+
+ALTER TABLE "MusicSessionItem"
+ADD COLUMN "sourceTrackId" TEXT;
+
+COMMIT;

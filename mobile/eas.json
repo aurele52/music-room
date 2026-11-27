@@ -1,0 +1,14 @@
+{
+  "build": {
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://debian-4gb-nbg1-1.tail231eef.ts.net",
+        "EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID": "610167785217-2kk4heah0bt9181gvuvalfbtemp006pg.apps.googleusercontent.com"
+      }
+    }
+  }
+}

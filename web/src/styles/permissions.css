@@ -1,0 +1,18 @@
+/* licences musicales */
+.music-policy-editor {
+  margin: 14px 0;
+  padding: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 12px;
+}
+
+.music-policy-editor label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 12px 0;
+}
+
+.music-policy-editor select {
+  min-height: 42px;
+}

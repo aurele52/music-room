@@ -1,0 +1,83 @@
+/* recherche et consultation des profils */
+
+.user-search-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.user-search-form input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font: inherit;
+}
+
+.user-search-results {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.user-search-result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+}
+
+.user-search-result span {
+  font-size: 12px;
+}
+
+.user-search-detail {
+  margin-top: 18px;
+  padding: 14px;
+  border: 1px solid #64748b;
+  border-radius: 10px;
+}
+
+.user-search-detail h3 {
+  margin-top: 0;
+}
+
+/* liste des amis et invitations */
+
+.friend-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #475569;
+}
+
+.friend-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.friend-item strong {
+  overflow-wrap: anywhere;
+}
+
+.friend-item button,
+.user-search-detail button {
+  width: auto;
+}
+
+.user-search-detail button + button {
+  margin-left: 8px;
+}
+
+.profile h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}

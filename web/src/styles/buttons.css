@@ -1,0 +1,45 @@
+button {
+  padding: 13px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+button:focus-visible {
+  outline: 2px solid #93c5fd;
+  outline-offset: 3px;
+}
+
+button.link {
+  background: transparent;
+  border: none;
+  color: #60a5fa;
+  padding: 0;
+}
+
+button.link:hover {
+  text-decoration: underline;
+}
+
+button.secondary {
+  width: 100%;
+  margin-top: 22px;
+  background: #374151;
+}
+
+button.secondary:hover {
+  background: #4b5563;
+}

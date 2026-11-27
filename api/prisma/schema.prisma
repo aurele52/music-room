@@ -1,0 +1,258 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  subscription     SubscriptionPlan  @default(FREE)
+  id               String            @id @default(uuid())
+  email            String            @unique
+  passwordHash     String?
+  name             String
+  publicBio        String            @default("")
+  friendsBio       String            @default("")
+  privateNote      String            @default("")
+  emailVerifiedAt  DateTime?
+  tokenVersion     Int               @default(0)
+  visibility       ProfileVisibility @default(PRIVATE)
+  favoriteGenres   String[]          @default([])
+  favoriteArtists  String[]          @default([])
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  authTokens       AuthToken[]
+  googleAccount    GoogleAccount?
+  organizedEvents  Event[]
+  eventInvitations EventInvitation[]
+  proposedTracks   EventTrack[]
+  trackVotes       TrackVote[]
+  friendshipsLow   Friendship[]      @relation("FriendshipLow")
+  friendshipsHigh  Friendship[]      @relation("FriendshipHigh")
+  playlistItems    PlaylistItem[]
+}
+
+model AuthToken {
+  id        String   @id @default(uuid())
+  tokenHash String   @unique
+  purpose   String
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, purpose])
+}
+
+model GoogleAccount {
+  id        String   @id @default(uuid())
+  googleSub String   @unique
+  userId    String   @unique
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Contrôle de visibilité des profils Music Room.
+enum ProfileVisibility {
+  PUBLIC
+  FRIENDS
+  PRIVATE
+}
+
+// Une seule relation possible par paire d'utilisateurs.
+enum FriendshipStatus {
+  PENDING
+  ACCEPTED
+}
+
+model Friendship {
+  id          String           @id @default(uuid())
+  userLowId   String
+  userHighId  String
+  requesterId String
+  status      FriendshipStatus @default(PENDING)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  userLow  User @relation("FriendshipLow", fields: [userLowId], references: [id], onDelete: Cascade)
+  userHigh User @relation("FriendshipHigh", fields: [userHighId], references: [id], onDelete: Cascade)
+
+  @@unique([userLowId, userHighId])
+  @@index([userLowId, status])
+  @@index([userHighId, status])
+}
+
+// Evenements musicaux organises par les utilisateurs.
+enum EventVisibility {
+  PUBLIC
+  PRIVATE
+}
+
+model Event {
+  id               String            @id @default(uuid())
+  title            String
+  description      String            @default("")
+  location         String            @default("")
+  startsAt         DateTime
+  endsAt           DateTime
+  visibility       EventVisibility   @default(PUBLIC)
+  votePolicy       MusicAccessPolicy @default(PUBLIC)
+  editPolicy       MusicAccessPolicy @default(PUBLIC)
+  voteWindowStart  DateTime?
+  voteWindowEnd    DateTime?
+  voteLatitude     Float?
+  voteLongitude    Float?
+  voteRadiusMeters Int?
+  organizerId      String
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+
+  organizer    User              @relation(fields: [organizerId], references: [id], onDelete: Cascade)
+  invitations  EventInvitation[]
+  tracks       EventTrack[]
+  playlists    EventPlaylist[]
+  musicSession MusicSession?
+
+  @@index([organizerId, startsAt])
+  @@index([visibility, startsAt])
+}
+
+// Invitation à un événement musical.
+enum EventInvitationStatus {
+  PENDING
+  ACCEPTED
+}
+
+model EventInvitation {
+  id        String                @id @default(uuid())
+  eventId   String
+  userId    String
+  status    EventInvitationStatus @default(PENDING)
+  createdAt DateTime              @default(now())
+  updatedAt DateTime              @updatedAt
+
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, userId])
+  @@index([userId, status])
+  @@index([eventId, status])
+}
+
+// Morceau proposé dans un événement Music Track Vote.
+model EventTrack {
+  id         String   @id @default(uuid())
+  eventId    String
+  proposerId String
+  title      String
+  artist     String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  event    Event       @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  proposer User        @relation(fields: [proposerId], references: [id], onDelete: Cascade)
+  votes    TrackVote[]
+
+  @@index([eventId, createdAt])
+  @@index([proposerId])
+}
+
+// Un utilisateur ne peut voter qu'une fois pour un même morceau.
+model TrackVote {
+  id        String   @id @default(uuid())
+  trackId   String
+  userId    String
+  createdAt DateTime @default(now())
+
+  track EventTrack @relation(fields: [trackId], references: [id], onDelete: Cascade)
+  user  User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([trackId, userId])
+  @@index([userId])
+}
+
+// Playlists collaboratives d'un événement.
+model EventPlaylist {
+  id          String            @id @default(uuid())
+  eventId     String
+  title       String
+  description String            @default("")
+  visibility  EventVisibility   @default(PUBLIC)
+  editPolicy  MusicAccessPolicy @default(PUBLIC)
+  revision    Int               @default(0)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  event Event          @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  items PlaylistItem[]
+
+  @@index([eventId, createdAt])
+}
+
+// Morceau ordonné dans une playlist.
+model PlaylistItem {
+  id         String   @id @default(uuid())
+  playlistId String
+  addedById  String
+  title      String
+  artist     String
+  position   Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  playlist EventPlaylist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+  addedBy  User          @relation(fields: [addedById], references: [id], onDelete: Cascade)
+
+  @@unique([playlistId, position])
+  @@index([addedById])
+}
+
+// État de la session musicale.
+enum MusicSessionState {
+  PAUSED
+  PLAYING
+  STOPPED
+}
+
+model MusicSession {
+  id           String            @id @default(uuid())
+  eventId      String            @unique
+  state        MusicSessionState @default(PAUSED)
+  currentIndex Int               @default(0)
+  revision     Int               @default(0)
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+
+  event Event              @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  items MusicSessionItem[]
+}
+
+model MusicSessionItem {
+  sourceTrackId String?
+  id            String  @id @default(uuid())
+  sessionId     String
+  title         String
+  artist        String
+  position      Int
+
+  session MusicSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@unique([sessionId, position])
+}
+
+// Permissions musicales.
+enum MusicAccessPolicy {
+  PUBLIC
+  INVITED_ONLY
+}
+
+
+// Deux offres d'abonnement Music Room.
+enum SubscriptionPlan {
+  FREE
+  PREMIUM
+}

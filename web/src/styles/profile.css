@@ -1,0 +1,21 @@
+/* visibilité du profil */
+#profile-visibility {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font: inherit;
+}
+
+/* champs de préférences musicales */
+#music-genres,
+#music-artists {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 105px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font: inherit;
+  resize: vertical;
+}

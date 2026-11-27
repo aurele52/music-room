@@ -1,0 +1,103 @@
+/* événements musicaux */
+
+.event-form {
+  margin-bottom: 24px;
+}
+
+.event-form input,
+.event-form textarea,
+.event-form select {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font: inherit;
+}
+
+.event-item {
+  margin-top: 14px;
+  padding: 16px;
+  border: 1px solid #475569;
+  border-radius: 10px;
+}
+
+.event-item h3 {
+  margin-top: 0;
+}
+
+.event-item p {
+  overflow-wrap: anywhere;
+}
+
+/* invitations et participants */
+
+.event-participants {
+  margin-top: 16px;
+  padding: 14px;
+  border: 1px solid #475569;
+  border-radius: 10px;
+}
+
+.event-invite-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.event-invite-form select {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font: inherit;
+}
+
+.event-participants h4 {
+  margin-top: 16px;
+  margin-bottom: 10px;
+}
+
+.event-participants .friend-item p {
+  margin: 4px 0;
+}
+
+/* découverte et recherche d'événements */
+
+.event-discovery-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.event-discovery-form input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font: inherit;
+}
+
+.event-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.event-pagination button {
+  width: auto;
+}
+
+.event-discovery-detail {
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid #64748b;
+  border-radius: 10px;
+}
+
+.event-discovery-detail h3 {
+  margin-top: 0;
+}

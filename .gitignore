@@ -1,0 +1,23 @@
+# Dependances
+node_modules/
+
+# Compilation et caches
+dist/
+build/
+.expo/
+.turbo/
+coverage/
+*.tsbuildinfo
+
+# Secrets et environnement
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Fichiers de developpement
+.dev-mails.jsonl
+*.log
+
+# Audio de demonstration genere par make install
+api/audio/*.wav

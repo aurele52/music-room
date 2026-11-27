@@ -1,0 +1,142 @@
+/* Music Playlist Editor */
+
+.playlist-editor {
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid #64748b;
+  border-radius: 10px;
+}
+
+.playlist-toolbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.playlist-toolbar h4 {
+  margin-top: 0;
+}
+
+.playlist-toolbar button {
+  width: auto;
+}
+
+.playlist-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 18px 0;
+  padding: 16px;
+  border: 1px solid #475569;
+  border-radius: 10px;
+}
+
+.playlist-form h4 {
+  margin-top: 0;
+}
+
+.playlist-form input,
+.playlist-form textarea,
+.playlist-form select {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font: inherit;
+}
+
+.playlist-card {
+  margin-top: 16px;
+  padding: 14px;
+  border: 1px solid #475569;
+  border-radius: 10px;
+}
+
+.playlist-card p {
+  overflow-wrap: anywhere;
+}
+
+.playlist-items {
+  margin: 12px 0;
+  padding-left: 32px;
+}
+
+.playlist-item {
+  padding: 12px 8px;
+  border-bottom: 1px solid #475569;
+}
+
+.playlist-item::marker {
+  font-weight: bold;
+}
+
+.playlist-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.playlist-item-info strong,
+.playlist-item-info span,
+.playlist-item-info small {
+  overflow-wrap: anywhere;
+}
+
+.playlist-item-info small {
+  opacity: 0.75;
+}
+
+.playlist-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.playlist-actions button {
+  width: auto;
+}
+
+@media (max-width: 600px) {
+  .playlist-toolbar {
+    flex-direction: column;
+  }
+
+  .playlist-actions {
+    flex-direction: column;
+  }
+
+  .playlist-actions button,
+  .playlist-toolbar button {
+    width: 100%;
+  }
+}
+
+/* déplacement des morceaux */
+
+.playlist-item[draggable="true"] {
+  cursor: grab;
+}
+
+.playlist-item[draggable="true"]:active {
+  cursor: grabbing;
+}
+
+.playlist-item-dragging {
+  opacity: 0.4;
+  border: 1px dashed currentColor;
+  border-radius: 8px;
+}
+
+.playlist-item[draggable="true"]:hover {
+  background: rgba(148, 163, 184, 0.08);
+}
+
+@media (hover: none) {
+  .playlist-item[draggable="true"] {
+    cursor: auto;
+  }
+}

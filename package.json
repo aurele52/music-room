@@ -1,0 +1,22 @@
+{
+  "name": "music-room",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently --kill-others -n API,WEB -c cyan,green \"pnpm --filter music-room-api dev\" \"pnpm --filter music-room-web dev\"",
+    "dev:api": "pnpm --filter music-room-api dev",
+    "dev:web": "pnpm --filter music-room-web dev",
+    "dev:mobile": "pnpm --filter music-room-mobile start",
+    "dev:all": "turbo run dev",
+    "build": "turbo run build",
+    "check": "turbo run check",
+    "db:generate": "pnpm --filter music-room-api db:generate",
+    "db:migrate": "pnpm --filter music-room-api db:migrate",
+    "db:status": "pnpm --filter music-room-api db:status"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.7",
+    "turbo": "^2.11.13"
+  },
+  "packageManager": "pnpm@11.22.0"
+}
